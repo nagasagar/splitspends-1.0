@@ -1,0 +1,81 @@
+<ion-modal-view title="Edit Expense" >
+    <ion-header-bar class="bar-positive">
+        <button  ng-click="hideeditexpensemodal()" class="button button-clear icon ion-ios-arrow-back"></button>
+        <h1 class="title">Edit Expense</h1>
+    </ion-header-bar>
+    <ion-content padding="true" class="has-header" ng-controller="expensecontrol" has-subheader="false">
+        <form name="editexpenseform" ng-submit="editexpense(editexpenseform)" novalidate="">
+        <div class=" inset-list ">
+            <label class="item item-stable item-input">
+                <span class="input-label positive"><b>Detail</b></span>
+                <input class="lightgray" type="text" placeholder="enter the bill detail" ng-model="editexpensedata.detail" name="detail" required>
+            </label>
+            <div class="form-errors" 
+                ng-show="editexpenseform.detail.$error && editexpenseform.$submitted"
+                ng-messages="editexpenseform.detail.$error"> 
+                <div ng-messages-include="templates/form-errors.html"></div> 
+            </div> 
+            <!--<div ng-show="editexpenseform.$submitted || editexpenseform.detail.$touched">
+                <p ng-show="editexpenseform.detail.$error.required">please enter bill detail..</p>
+            </div>-->
+
+            <label class="item item-stable item-input" >
+                <span class="input-label positive"><b>Amount</b></span>
+                <input type="number" number placeholder="enter the bill amount" ng-model="editexpensedata.amount" id="amount" name="amount" min="0.1" required />
+            </label>
+            <div class="form-errors"  
+                ng-show="editexpenseform.amount.$error && editexpenseform.$submitted"
+                ng-messages="editexpenseform.amount.$error">
+                <div ng-messages-include="templates/form-errors.html"></div>
+                <div class="form-error" ng-message="min">The bill amount cannot be less than 0.1</div> 
+            </div>
+            <!--<div ng-show="editexpenseform.$submitted || editexpenseform.amount.$touched">
+                <p ng-show="editexpenseform.amount.$error.required">please enter bill amount..</p>
+            </div>
+            <p ng-show="editexpenseform.amount.$error.number">bill amount should be numeric value</p>
+            <p ng-show="editexpenseform.amount.$error.min">bill amount should be greater than 0</p>-->
+            <label class="item item-stable item-input">
+                <span class="input-label positive"><b>Date</b></span>
+                <input type="date" ng-model="editexpensedata.date" name="date" required>
+            </label>
+            <div class="form-errors" 
+                ng-show="editexpenseform.date.$error && editexpenseform.$submitted"
+                ng-messages="editexpenseform.date.$error"> 
+                <div ng-messages-include="templates/form-errors.html"></div> 
+        </div> 
+        </div>
+        <div class="inset-list ">
+            <div class="item item-stable item-select"  ng-class="{ 'has-error-lr' : editexpenseform.taggedgroup.$invalid }" >
+                <span class="input-label positive "><b>Tag to group</b></span>
+                <select ng-model="editexpensedata.taggedgroup" ng-options="group.id as group.name for group in groups" ng-selected= "{{group.id == editexpensedata.taggedgroup}}" ng-change="setusers(editexpensedata.taggedgroup)" name="taggedgroup" placeholder="select.." required>
+                </select>
+            </div>
+        </div>
+        <div class="form-errors" 
+                ng-show="editexpenseform.taggedgroup.$error && editexpenseform.$submitted"
+                ng-messages="editexpenseform.taggedgroup.$error"> 
+                <div ng-messages-include="templates/form-errors.html"></div> 
+        </div> 
+        <div class="inset-list ">
+            <div class="item item-stable" ng-click="slectspenders(editexpenseform)">
+                <span class="input-label positive "><b>Paid By</b></span><span class="select  item-text-wrap">{{editexpensedata.place_spentby}}</span>
+            </div>
+        </div>
+        <div ng-show="editexpenseform.$submitted && expensedata.contrib==undefined">
+            <p class="assertive"><i class="ion-information-circled assertive">please enter payer's details..</i></p>
+        </div>
+        <div class="inset-list ">
+            <div class="item item-stable " ng-click="slectapplicable(editexpenseform)">
+                 <span class="input-label positive"><b>Applicable to</b></span><span class="select  item-text-wrap">{{editexpensedata.place_applicableto}}</span>
+            </div>
+        </div>
+        <div ng-show="editexpenseform.$submitted && expensedata.applicable==undefined">
+            <p class="assertive"><i class="ion-information-circled assertive">please enter payee's details..</i></p>
+        </div>
+         <button class="button button-positive button-block " type="submit">Edit Expense</button>
+        </form>
+    </ion-content>
+</ion-modal-view>
+<script id="templates/form-errors.html" type="text/ng-template">  
+  <div class="error" ng-message="required"><i class="ion-information-circled assertive">This field is required.</i> </div>
+</script>

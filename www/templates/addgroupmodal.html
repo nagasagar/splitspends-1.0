@@ -1,0 +1,33 @@
+<ion-modal-view view-title="Add Group" class="positive">
+    <ion-header-bar class="bar-positive">
+               <button  ng-click="hideaddgroupmodal()" class="button button-clear icon ion-ios-arrow-back"></button>
+                <h1 class="title">Add Group</h1>
+    </ion-header-bar>
+    <ion-content has-subheader="false">
+        <form name="addgroupform" ng-submit="addgroup(groupdata)">
+                <label class="item item-input">
+                    <span class="input-label"><b>Name</b></span>
+                    <input type="text" ng-model="groupdata.name" name="groupname" placeholder="enter the group name" required>
+                </label>
+                <div ng-show="addgroupform.$submitted || addgroupform.groupname.$touched">
+                  <p ng-show="addgroupform.groupname.$error.required">please enter group name..</p>
+                </div>
+                <div class="item row" ng-click="showselectusers()" ng-model="groupdata.users">
+                <span class="input-label col"><b>Add users</b></span><span class="col input">{{place_selectusers}}</span>
+                </div>
+                <button class="button button-block button-positive" type="submit">ADD</button>
+        </form>
+    </ion-content>
+</ion-modal-view>
+<script id="selectusers.html" type="text/ng-template">
+      <div class="modal">
+        <ion-header-bar class="bar-positive">
+                <button ng-click="hideselectusers()" class="button button-clear button-icon ion-ios-arrow-back"></button>
+                <h1 class="title">Select users</h1>
+                <button ng-click="validateselectusers()" class="button button-clear  ion-checkmark"></button>
+        </ion-header-bar>
+        <ion-content padding="true" class="has-header">
+                <ion-checkbox ng-repeat="user in users" ng-model="formdata.selectusers[user.id]" class="item tem-text-wrap">{{user.name}}</ion-checkbox>
+        </ion-content>
+      </div>
+</script>

@@ -1,0 +1,24 @@
+<ion-view view-title="Expenses">
+     <ion-nav-buttons side="right" class="header-item">
+        <button class=" button button-fab button-positive" ng-click="showaddexpensemodal()"><i class="icon ion-plus"></i></button>
+    </ion-nav-buttons>
+    <ionic-header-bar class=" bar bar-subheader">
+        <label class="item-input" >
+            <i class="icon ion-ios-search placeholder-icon"></i>
+            <input type="search" placeholder="Search" ng-model="searchText">
+        </label>
+    </ionic-header-bar> 
+    <ion-content  class="has-subheader">
+        <ion-list ng-repeat="groupedexpense in groupedexpenses  track by groupedexpense[0]" show-delete="shouldShowDelete">
+                <ion-item class="item-divider item-stable ">
+                    <b class="positive">{{groupedexpense[0]| date:'dd-MMM-yy'}}</b>
+                </ion-item>
+                <ion-item class="item-icon-left"  ng-repeat="expense in groupedexpense[1] | filter:searchText" ng-init="transform(expense)" class="item" href="#app/listexpenses/{{expense.id}}">
+                    <i class="icon-left ion-social-usd icon positive"></i>
+                     <h3>{{expense.detail}}</h3>
+                    <p ><i class="ion-ios-pricetag small-icon"> {{expense.taggedgroup_name.toLowerCase()}}</i></p>
+                    <b class="badge dark">{{expense.amount}}</b>
+            </ion-item>
+        </ion-list>
+    </ion-content>
+</ion-view>

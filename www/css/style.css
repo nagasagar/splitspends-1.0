@@ -1,0 +1,60 @@
+  .small-icon {
+  font-size: 12px;}
+    .small {
+  font-size: 12px;}
+  .center{
+     text-align:center;}
+
+  .button-right{
+  display: block !important;
+  width: 100% !important;
+  text-align:right !important;
+}
+.list .item.item-accordion {
+  line-height: 20px;
+  padding-top: 0;
+  padding-bottom: 0;
+  transition: 0.009s all linear;
+}
+.list .item.item-accordion.ng-hide {
+  line-height: 0px;
+}
+.list .item.item-accordion.ng-hide-add,
+.list .item.item-accordion.ng-hide-remove {
+  display: block !important;
+}
+.lightgray { 
+  background-color: LightGray;
+}
+.lightblue { 
+  background-color: LightBlue;
+}
+.chip {
+    border-radius: 25px;
+    background: #DCDCDC;
+    display: inline;
+    padding: 2px;
+    font:small-caption
+}
+label.item.has-error {
+  border-bottom: 2px solid red;
+}
+
+label.item.has-error-lr {
+  border-left: 2px solid red;
+  border-right: 2px solid red;
+}
+
+label.item.valid-lr {
+  border-left: 2px solid green;
+  border-right: 2px solid green;
+}
+
+.form-errors {
+  margin: 5px 0
+}
+
+.form-error {
+  padding: 2px 0 2px 16px;
+  color: red;
+}

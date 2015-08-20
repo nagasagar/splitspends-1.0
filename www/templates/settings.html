@@ -1,0 +1,28 @@
+<ion-view view-title="Settings">
+<ion-content has-subheader="true">
+</br>
+
+<div class="card">
+  <ion-item class="item-divider item-stable positive item-icon-right"><b class="positive">Export </b><i class=" icon ion-log-out" ng-click="export_json()"></i></ion-item>
+  <div class="item item-text-wrap">
+    <p>Export Application data to a .json file . Which can be imported later.</p>
+  </div>
+</div>
+<ion-list></ion-list>
+<div class="card">
+  <ion-item class="item-divider item-stable positive item-icon-right"><b class="positive">Import</b> <i class=" icon ion-log-in" ng-click="import_json()"></i></ion-item>
+  <div class="item item-text-wrap">
+    <p>Import data in to application from a .json file.</p>
+  </div>
+</div>
+<ion-list></ion-list>
+<div class="card">
+  <ion-item class="item-divider item-stable positive item-icon-right" ng-click="rate()"><b class="positive">Rate Us</b></ion-item>
+  <div class="item item-text-wrap center" ng-click="rate()">
+    <p><i class="positive icon ion-ios-star"></i> <i class="positive icon ion-ios-star"></i> <i class="positive icon ion-ios-star"></i> <i class="positive icon ion-ios-star"></i> <i class="positive icon ion-ios-star"></i></p>
+  </div>
+</div>
+
+
+</ion-content>
+</ion-view>

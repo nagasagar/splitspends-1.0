@@ -1,0 +1,42 @@
+<ion-side-menus enable-menu-with-back-views="true">
+    <ion-side-menu-content>
+        <ion-nav-bar class="bar-positive">
+            <ion-nav-buttons side="left">
+                <button class="button button-icon button-clear ion-navicon" menu-toggle="left">
+                </button>
+            </ion-nav-buttons>
+            <ion-nav-back-button class="no-text">
+            </ion-nav-back-button>
+        </ion-nav-bar>
+        <ion-nav-view name="menuContent" ng-class="{expanded: isExpanded}" ></ion-nav-view>
+
+    </ion-side-menu-content>
+    <ion-side-menu side="left" expose-aside-when="large">
+        <ion-content>
+            <ion-list>
+                <!--<ion-item nav-clear menu-close class="item-icon-left" ui-sref="app.addgroup" >
+                    <i class="icon ion-person-stalker"></i>Add Group
+                </ion-item>
+                <ion-item nav-clear menu-close class="item-icon-left" ui-sref="app.adduser">
+                    <i class="icon ion-person-add"></i>Add User
+                </ion-item>
+                <ion-item menu-close class="item-icon-left" ui-sref="app.addexpense">
+                    <i class="icon ion-cash"></i><b>Add Expense</b>
+                </ion-item>-->
+                <div class="item item-divider positive">Menu</div>
+                <ion-item menu-close class="item-icon-left" ui-sref="app.listgroups">
+                    <i class="icon ion-ios-people positive"></i><b>Groups</b>
+                </ion-item>
+                <ion-item menu-close class="item-icon-left" ui-sref="app.listusers">
+                    <i class="icon ion-person positive"></i><b>Users</b>
+                </ion-item>
+                <ion-item menu-close class="item-icon-left" ui-sref="app.listexpenses">
+                    <i class="icon ion-cash positive"></i><b>Expenses</b>
+                </ion-item>
+                <ion-item nav-clear menu-close class="item-icon-left" ui-sref="app.settings">
+                    <i class="icon ion-gear-b positive"></i><b>Settings</b>
+                </ion-item>
+            </ion-list>
+        </ion-content>
+    </ion-side-menu>
+</ion-side-menus>
