@@ -13,8 +13,8 @@
                 </div>
                 <ion-checkbox ng-repeat="user in users" ng-model="formdata.applicableequally[user.id]" class="item tem-text-wrap">{{user.name}}</ion-checkbox>
 
-                <div class="item">Total <b>{{expensedata.amount}}</b> will be applicable to {{getnumberofapplicable()}} users</div>
-                <div class="item">amountapplicabe to each user :<span id="ps"><b>{{applicableperuser().toFixed(2)}}</b></span>
+                <div class="item">Total <b>{{totalamt.toFixed(2)}}</b> will be applicable to <b>{{getnumberofapplicable()}}</b> users</div>
+                <div class="item">amountapplicabe to each user :<span id="ps"><b>{{(totalamt/getnumberofapplicable()).toFixed(2)}}</b></span>
 
             </ion-content>
         </ion-tab>
@@ -28,10 +28,10 @@
                 <form name="userForm">
                     <label class="item item-input " ng-repeat="user in users" >
                         <span class="input-label">{{user.name}}</span>
-                        <input type="text" ng-model="formdata.applicableunequally[user.id]" placeholder="..">
+                        <input type="number" ng-model="formdata.applicableunequally[user.id]" placeholder=0>
                     </label>
                     <div class="item">Total <b>{{gettotal(formdata.applicableunequally).toFixed(2)}}</b> of   <b>{{totalamt.toFixed(2)}}</b></div>
-                    <div class="item" name="remaining_amount" id="remaining_amount">remaining <span id="apprem"><b>{{(expensedata.amount-gettotal(formdata.applicableunequally)).toFixed(2)}}</b></span></div>
+                    <div class="item" name="remaining_amount" id="remaining_amount">remaining <span id="apprem"><b>{{(totalamt-gettotal(formdata.applicableunequally)).toFixed(2)}}</b></span></div>
                 </form>
             </ion-content>
         </ion-tab>

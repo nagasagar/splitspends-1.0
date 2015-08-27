@@ -1,8 +1,9 @@
-<ion-view title="Expense Details" >  
- <ion-nav-buttons side="primary">
-        <h1 class="title"></h1>
-      <button ng-click="showActionsheet()" class="button button-fab button-positive"><i class="icon ion-edit"></i></button>
-    </ion-nav-buttons> 
+<ion-view title="Expense Details" hide-nav-bar="true">  
+    <ion-header-bar align-title="left" class="bar-positive">
+    <button class="button button-icon button-clear ion-chevron-left" ng-click="myGoBack()"></button>
+    <h1 class="title">Expense Details</h1>
+        <button ng-click="showActionsheet()" class="button button-fab button-positive" side="right"><i class="icon ion-edit"></i></button>
+    </ion-header-bar>
     <ion-content  class="has-header">
         <div class="card">
             <div class="item item-divider item-positive center">{{expensedata.detail}}</div>
@@ -20,7 +21,7 @@
             <ion-list class="card">
                 <div class="item item-divider item-positive"> Applicable To</div>
                 <div class="row" ng-repeat="app in expensedata.applicable">
-                    <div class="col positive bold">{{getusername(app.payee)}}</div><div class="col col-25 bold">{{app.amount}}</div>
+                    <div class="col positive bold">{{getusername(app.payee)}}</div><div class="col col-25 bold">{{(app.amount).toFixed(2)}}</div>
                 </div>
             </ion-list>
         </div> 

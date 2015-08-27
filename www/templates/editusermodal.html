@@ -1,0 +1,38 @@
+<ion-modal-view view-title="Add User" class="positive">
+ <ion-header-bar class="bar-positive">
+               <button  ng-click="hideeditusermodal()" class="button button-clear icon ion-ios-arrow-back"></button>
+                <h1 class="title">Edit User</h1>
+    </ion-header-bar>
+    <ion-content has-subheader="false">
+        <form name="adduserform"  ng-submit="edituser(edituserdata)">
+          <label class="item item-input">
+            <span class="input-label"><b>Name</b></span>
+            <input type="text" ng-model="edituserdata.name" name="username" placeholder="enter the user name" required>
+          </label>
+          <div ng-show="adduserform.$submitted || adduserform.username.$touched">
+                  <p ng-show="adduserform.username.$error.required">please enter user name..</p>
+          </div>
+           <div class="item">
+                <b class="positive"> Current Groups : </b><span class="item-text-wrap chipcontainer" ng-repeat = "group in currentgroups" ><p class="chip">{{group.name}}</p> </span>
+            </div>
+          <div class="item row" ng-click="showselectgroups()" ng-model="userdata.groups">
+            <span class="input-label col"><b>Add to more groups</b></span><span class="col center input">{{place_selectgroups}}</span>
+          </div>        
+          <button class="button button-block button-positive" type="submit">Edit</button>
+        </form>
+        <button ng-show="!groups" class="button button-block button-positive" ng-click="deleteuser()">Delete</button>
+    </ion-content>
+</ion-modal-view>
+<script id="selectgroups.html" type="text/ng-template">
+      <div class="modal">
+        <ion-header-bar class="bar-positive">
+                <button ng-click="hideselectgroups()" class="button button-clear button-icon ion-ios-arrow-back"></button>
+                <h1 class="title">Select groups</h1>
+                <button ng-click="validateselectgroups()" class="button button-clear icon  ion-checkmark"></button>
+        </ion-header-bar>
+        <ion-content padding="true" class="has-header">
+              <ion-checkbox ng-repeat="group in moregroups" ng-model="formdata.selectgroups[group.id]" class="item tem-text-wrap">{{group.name}}</ion-checkbox>
+        </ion-content>
+      </div>
+</script>
+      

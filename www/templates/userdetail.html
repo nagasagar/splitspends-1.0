@@ -1,6 +1,6 @@
 <ion-view title={{user.name}}>
 <ion-nav-buttons side="right">
-        <button class=" button button-positive button-fab" ng-click="showManageUserActionsheet()"><i class="icon ion-edit"></i></button>
+        <button class=" button button-positive button-fab" ng-click="showeditusermodal()"><i class="icon ion-edit"></i></button>
 </ion-nav-buttons>        
 <ion-pane>
    <ion-tabs class=" tabs-striped tabs-positive">
@@ -8,7 +8,7 @@
             <ion-nav-bar class="bar-positive"></ion-nav-bar>
             <ion-content padding="true" class="has-header">
             <div class="item">
-                <b class="positive">Groups : </b><span class="item-text-wrap" ng-repeat = "group in groups"><p class="chip">{{group.name}}</p> </span>
+                <b class="positive">Groups : </b><span class="item-text-wrap chipcontainer" ng-repeat = "group in groups"><p class="chip">{{group.name}}</p> </span>
             </div>
             <div class="row "></div>
             <div class="row item item-icon-right bar item-divider bar-positive"><div class="col center"><b>Payments</b></div>
@@ -34,7 +34,7 @@
             <ion-nav-bar class="bar-positive"></ion-nav-bar>
             <ion-content padding="true" class="has-header">
             <div class="item ">
-                <b class="positive">Groups : </b><span class="item-text-wrap" ng-repeat = "group in groups"><p class="chip">{{group.name}}</p> </span>
+                <b class="positive">Groups : </b><span class="item-text-wrap chipcontainer" ng-repeat = "group in groups"><p class="chip">{{group.name}}</p> </span>
             </div>
             <div class="row "></div>
             <div class="row item item-icon-right bar item-divider bar-positive"><div class="col center"><b>Spends</b></div>
@@ -99,7 +99,7 @@
             <ion-list><div class="item"></div></ion-list>
              <div class="row item item-divider positive item-icon-right" ng-click="togglesettlements_made()">
                 <div class="col col-90 center"><b>Settlements Made</b></div>
-                <div class="col col-10"><i ng-class="issettlements_madeshown() ? 'ion-chevron-up' : 'ion-chevron-down'"></i></div>
+                <div class="col col-10"><i ng-class="issettlements_madeshown() ? '' : 'ion-android-more-vertical'"></i></div>
             </div>
             <ion-list>
             <div class="item-accordion" ng-show="issettlements_madeshown(groupbalance)">
@@ -113,7 +113,7 @@
             <ion-list><div class="item"></div></ion-list>
             <div class="row item item-divider positive item-icon-right" ng-click="togglesettlements_recieved()">
                 <div class="col col-90 center"><b>Settlements Recieved</b></div>
-                <div class="col col-10"><i ng-class="issettlements_recievedshown() ? 'ion-chevron-up' : 'ion-chevron-down'"></i></div>
+                <div class="col col-10"><i ng-class="issettlements_recievedshown() ? '' : 'ion-android-more-vertical'"></i></div>
             </div>
             <ion-list>
             <div class="item-accordion" ng-show="issettlements_recievedshown(groupbalance)">

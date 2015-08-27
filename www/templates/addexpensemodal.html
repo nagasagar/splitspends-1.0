@@ -1,81 +1,75 @@
 <ion-modal-view title="Add Expense" >
-    <ion-header-bar class="bar-positive">
-        <button  ng-click="hideaddexpensemodal()" class="button button-clear icon ion-ios-arrow-back"></button>
-        <h1 class="title">Add Expense</h1>
-    </ion-header-bar>
-    <ion-content padding="true" class="has-header" ng-controller="expensecontrol" has-subheader="false">
-        <form name="addexpenseform" ng-submit="addexpense(addexpenseform)" novalidate="">
-        <div class=" inset-list ">
-            <label class="item item-stable item-input">
-                <span class="input-label positive"><b>Detail</b></span>
-                <input class="lightgray" type="text" placeholder="enter the bill detail" ng-model="expensedata.detail" name="detail" required>
-            </label>
-            <div class="form-errors" 
-                ng-show="addexpenseform.detail.$error && addexpenseform.$submitted"
-                ng-messages="addexpenseform.detail.$error"> 
-                <div ng-messages-include="templates/form-errors.html"></div> 
-            </div> 
-            <!--<div ng-show="addexpenseform.$submitted || addexpenseform.detail.$touched">
-                <p ng-show="addexpenseform.detail.$error.required">please enter bill detail..</p>
-            </div>-->
-
-            <label class="item item-stable item-input" >
-                <span class="input-label positive"><b>Amount</b></span>
-                <input type="number" number placeholder="enter the bill amount" ng-model="expensedata.amount" id="amount" name="amount" min="0.1" required />
-            </label>
-            <div class="form-errors"  
-                ng-show="addexpenseform.amount.$error && addexpenseform.$submitted"
-                ng-messages="addexpenseform.amount.$error">
-                <div ng-messages-include="templates/form-errors.html"></div>
-                <div class="form-error" ng-message="min">The bill amount cannot be less than 0.1</div> 
-            </div>
-            <!--<div ng-show="addexpenseform.$submitted || addexpenseform.amount.$touched">
-                <p ng-show="addexpenseform.amount.$error.required">please enter bill amount..</p>
-            </div>
-            <p ng-show="addexpenseform.amount.$error.number">bill amount should be numeric value</p>
-            <p ng-show="addexpenseform.amount.$error.min">bill amount should be greater than 0</p>-->
-            <label class="item item-stable item-input">
-                <span class="input-label positive"><b>Date</b></span>
-                <input type="date" ng-model="expensedata.date" name="date" required>
-            </label>
-            <div class="form-errors" 
-                ng-show="addexpenseform.date.$error && addexpenseform.$submitted"
-                ng-messages="addexpenseform.date.$error"> 
-                <div ng-messages-include="templates/form-errors.html"></div> 
-        </div> 
+<ion-header-bar class="bar-positive">
+<button  ng-click="hideaddexpensemodal()" class="button button-clear icon ion-ios-arrow-back"></button>
+<h1 class="title">Add Expense</h1>
+</ion-header-bar>
+<ion-content padding="true" class="has-header" ng-controller="expensecontrol" has-subheader="false">
+<form name="addexpenseform" ng-submit="addexpense(addexpenseform)" novalidate="">
+    <div class=" inset-list ">
+        <label class="item item-stable item-input">
+            <span class="input-label positive"><b>Detail</b></span>
+            <input class="lightgray" type="text" placeholder="enter the bill detail" ng-model="expensedata.detail" name="detail" required>
+        </label>
+        <div class="form-errors"
+            ng-show="addexpenseform.detail.$error && addexpenseform.$submitted"
+            ng-messages="addexpenseform.detail.$error">
+            <div ng-messages-include="templates/form-errors.html"></div>
         </div>
-        <div class="inset-list ">
-            <div class="item item-stable item-select"  ng-class="{ 'has-error-lr' : addexpenseform.taggedgroup.$invalid }" >
-                <span class="input-label positive "><b>Tag to group</b></span>
-                <select ng-model="expensedata.taggedgroup" ng-options="group.id as group.name for group in groups" ng-change="setusers(expensedata.taggedgroup)" name="taggedgroup" placeholder="select.." required>
-                </select>
-            </div>
+        <label class="item item-stable item-input" >
+            <span class="input-label positive"><b>Amount</b></span>
+            <input type="number" number placeholder="enter the bill amount" ng-model="expensedata.amount" id="amount" name="amount" min="0.1" required />
+        </label>
+        <div class="form-errors"
+            ng-show="addexpenseform.amount.$error && addexpenseform.$submitted"
+            ng-messages="addexpenseform.amount.$error">
+            <div ng-messages-include="templates/form-errors.html"></div>
+            <div class="form-error" ng-message="min">The bill amount cannot be less than 0.1</div>
         </div>
-        <div class="form-errors" 
-                ng-show="addexpenseform.taggedgroup.$error && addexpenseform.$submitted"
-                ng-messages="addexpenseform.taggedgroup.$error"> 
-                <div ng-messages-include="templates/form-errors.html"></div> 
-        </div> 
-        <div class="inset-list ">
-            <div class="item item-stable" ng-click="slectspenders(addexpenseform)">
-                <span class="input-label positive "><b>Paid By</b></span><span class="select  item-text-wrap">{{place_spentby}}</span>
-            </div>
+        <label class="item item-stable item-input">
+            <span class="input-label positive"><b>Date</b></span>
+            <input type="date" ng-model="expensedata.date" name="date" required>
+        </label>
+        <div class="form-errors"
+            ng-show="addexpenseform.date.$error && addexpenseform.$submitted"
+            ng-messages="addexpenseform.date.$error">
+            <div ng-messages-include="templates/form-errors.html"></div>
         </div>
-        <div ng-show="addexpenseform.$submitted && expensedata.contrib==undefined">
-            <p class="assertive"><i class="ion-information-circled assertive">please enter payer's details..</i></p>
+    </div>
+    <div class="inset-list ">
+        <div class="item item-stable item-select"  ng-class="{ 'has-error-lr' : addexpenseform.taggedgroup.$invalid }" >
+            <span class="input-label positive "><b>Tag to group</b></span>
+            <select ng-model="expensedata.taggedgroup" ng-options="group.id as group.name for group in groups" ng-change="setusers(expensedata.taggedgroup)" name="taggedgroup" placeholder="select.." required>
+            </select>
         </div>
-        <div class="inset-list ">
-            <div class="item item-stable " ng-click="slectapplicable(addexpenseform)">
-                 <span class="input-label positive"><b>Applicable to</b></span><span class="select  item-text-wrap">{{place_applicableto}}</span>
-            </div>
+    </div>
+    <div class="form-errors"
+        ng-show="addexpenseform.taggedgroup.$error && addexpenseform.$submitted"
+        ng-messages="addexpenseform.taggedgroup.$error">
+        <div ng-messages-include="templates/form-errors.html"></div>
+    </div>
+    <div class="inset-list ">
+        <div class="item item-stable" ng-click="slectspenders(addexpenseform)">
+            <span class="input-label positive "><b>Paid By</b></span><span class="select  item-text-wrap">{{place_spentby}}</span>
         </div>
-        <div ng-show="addexpenseform.$submitted && expensedata.applicable==undefined">
-            <p class="assertive"><i class="ion-information-circled assertive">please enter payee's details..</i></p>
+    </div>
+    <div ng-show="addexpenseform.$submitted && expensedata.contrib==undefined">
+        <p class="assertive"><i class="ion-information-circled assertive">please enter payer's details..</i></p>
+    </div>
+     <div ng-show="addexpenseform.$submitted && expensedata.amount!=getexpensecontribtotal()">
+            <p class="assertive"><i class="ion-information-circled assertive">amount and payers total mismatch..</i></p>
         </div>
-         <button class="button button-positive button-block " type="submit">Add Expense</button>
-        </form>
-    </ion-content>
+    <div class="inset-list ">
+        <div class="item item-stable " ng-click="slectapplicable(addexpenseform)">
+            <span class="input-label positive"><b>Applicable to</b></span><span class="select  item-text-wrap">{{place_applicableto}}</span>
+        </div>
+    </div>
+    <div ng-show="addexpenseform.$submitted && expensedata.applicable==undefined">
+        <p class="assertive"><i class="ion-information-circled assertive">please enter payee's details..</i></p>
+    </div>
+    <button class="button button-positive button-block " type="submit">Add Expense</button>
+</form>
+</ion-content>
 </ion-modal-view>
-<script id="templates/form-errors.html" type="text/ng-template">  
-  <div class="error" ng-message="required"><i class="ion-information-circled assertive">This field is required.</i> </div>
+<script id="templates/form-errors.html" type="text/ng-template">
+<div class="error" ng-message="required"><i class="ion-information-circled assertive">This field is required.</i> </div>
 </script>

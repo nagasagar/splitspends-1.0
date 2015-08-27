@@ -61,16 +61,22 @@
                 <span class="input-label positive "><b>Paid By</b></span><span class="select  item-text-wrap">{{editexpensedata.place_spentby}}</span>
             </div>
         </div>
-        <div ng-show="editexpenseform.$submitted && expensedata.contrib==undefined">
+        <div ng-show="editexpenseform.$submitted && editexpensedata.contrib==undefined">
             <p class="assertive"><i class="ion-information-circled assertive">please enter payer's details..</i></p>
+        </div>
+        <div ng-show="editexpenseform.$submitted && editexpensedata.amount!=geteditexpensecontribtotal()">
+            <p class="assertive"><i class="ion-information-circled assertive">amount and payers total mismatch..</i></p>
         </div>
         <div class="inset-list ">
             <div class="item item-stable " ng-click="slectapplicable(editexpenseform)">
                  <span class="input-label positive"><b>Applicable to</b></span><span class="select  item-text-wrap">{{editexpensedata.place_applicableto}}</span>
             </div>
         </div>
-        <div ng-show="editexpenseform.$submitted && expensedata.applicable==undefined">
+        <div ng-show="editexpenseform.$submitted && editexpensedata.applicable==undefined">
             <p class="assertive"><i class="ion-information-circled assertive">please enter payee's details..</i></p>
+        </div>
+        <div ng-show="editexpenseform.$submitted && editexpensedata.amount != geteditexpenseapplicabletotal()">
+            <p class="assertive"><i class="ion-information-circled assertive">amount and applicables total mismatch..</i></p>
         </div>
          <button class="button button-positive button-block " type="submit">Edit Expense</button>
         </form>

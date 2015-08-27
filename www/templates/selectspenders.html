@@ -22,7 +22,7 @@
                     <div class="form-group" ng-repeat="user in users">
                         <label for="{{user.id}}" class="item item-input">
                             <span class="input-label">{{user.name}}</span>
-                            <number-only-input input-value="formdata.contrib[user.id]">
+                            <input type="number" ng-model="formdata.contrib[user.id]" placeholder=0>
                         </label>
                     </div>
                     <div class="item">Total <b>{{gettotal(formdata.contrib).toFixed(2)}}</b> of <b>{{totalamt.toFixed(2)}}</b></div>

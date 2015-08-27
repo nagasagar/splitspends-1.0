@@ -1,6 +1,6 @@
 <ion-view title={{group.name}}> 
 <ion-nav-buttons side="right">
-        <button class=" button button-positive ink-button button-fab button-riased" ng-click="showManageUserActionsheet()"><i class="icon ion-edit"></i></button>
+        <button class=" button button-positive ink-button button-fab button-riased" ng-click="showManageGroupActionsheet(group)"><i class="icon ion-edit"></i></button>
 </ion-nav-buttons>           
 <ion-pane>
    <ion-tabs class="tabs-striped tabs-positive">
@@ -63,7 +63,7 @@
             <ion-refresher on-refresh="doRefresh()"></ion-refresher>
             <div class="bar bar-positive item"><span class="col center"><b>Summary</b></span></div>
             <div class="row ">
-                <span class="col col-80 positive"><b> Totals expenditure : </b></span><span class="col col-20 assertive"><b>- {{(total_exp).toFixed(2)}}</b></span>
+                <span class="col col-80 positive"><b> Totals expenditure : </b></span><span class="col col-20 assertive"><b>{{(total_exp).toFixed(2)}}</b></span>
             </div>
             
             <div class="bar bar-positive item"><div class="col center"><b>Pending Settlements </b></div></div>
@@ -86,3 +86,4 @@
     </ion-tabs>
     </ion-pane>
 </ion-view>
+
