@@ -1,52 +1,64 @@
 angular.module('starter.controllers', ['ngCordova'])
 
+.controller('IntroCtrl', function($scope, $state, $ionicHistory, $ionicSlideBoxDelegate) {
 
+    // Called to navigate to the main app
+    $scope.startApp = function() {
+        $ionicHistory.nextViewOptions({
+            historyRoot: true
+        })
+        $state.go("app.listexpenses");
+        $ionicHistory.clearHistory();
+    };
+    $scope.next = function() {
+        $ionicSlideBoxDelegate.next();
+    };
+    $scope.previous = function() {
+        $ionicSlideBoxDelegate.previous();
+    };
 
-.controller('PlaylistsCtrl', function($scope, $cordovaSQLite) {
-
-    $scope.insert = function(firstname, lastname) {
-        var query = "INSERT INTO people (firstname, lastname) VALUES (?,?)";
-        $cordovaSQLite.execute(db, query, [firstname, lastname]).then(function(res) {
-            console.log("INSERT ID -> " + res.insertId);
-        }, function (err) {
-            console.error(err);
-        });
-    }
- 
-    $scope.select = function(lastname) {
-        var query = "SELECT firstname, lastname FROM people WHERE lastname = ?";
-        $cordovaSQLite.execute(db, query, [lastname]).then(function(res) {
-            if(res.rows.length > 0) {
-                console.log("SELECTED -> " + res.rows.item(0).firstname + " " + res.rows.item(0).lastname);
-            } else {
-                console.log("No results found");
-            }
-        }, function (err) {
-            console.error(err);
-        });
-    }
-    
-    $scope.playlists = [{
-        title: 'Reggae',
-        id: 1
-    }, {
-        title: 'Chill',
-        id: 2
-    }, {
-        title: 'Dubstep',
-        id: 3
-    }, {
-        title: 'Indie',
-        id: 4
-    }, {
-        title: 'Rap',
-        id: 5
-    }, {
-        title: 'Cowbell',
-        id: 6
-    }];
+    // Called each time the slide changes
+    $scope.slideChanged = function(index) {
+        $scope.slideIndex = index;
+    };
 })
 
-.controller('PlaylistCtrl', function($scope, $stateParams) {})
 
+.controller('settingscontrol', function($scope, $rootScope, $cordovaSQLite, $ionicModal, $window, DB_CONFIG) {
 
+    $scope.themes = [
+        'positive',
+        'calm',
+        'energized',
+        'royal',
+        'dark'
+    ];
+
+    $scope.themeChange = function(theme) {
+        // save theme locally
+        $window.localStorage.appTheme = theme;
+        $rootScope.appTheme = $window.localStorage.appTheme;
+        $rootScope.appTheme_bar = "bar-" + theme;
+        // reload
+        $scope.hideselectthememodal();
+        $window.location.reload(true)
+    }
+    $scope.showselectthememodal = function(expenseid) {
+        $ionicModal.fromTemplateUrl('selecttheme.html', function(modal) {
+            $scope.selectthememodal = modal;
+            $scope.selectthememodal.show();
+        }, {
+            scope: $scope
+        });
+    }
+    $scope.hideselectthememodal = function(expenseid) {
+        $scope.selectthememodal.hide();
+    }
+    $scope.rateapp = function() {
+        if (device.platform === "ios") {
+            window.open('itms-apps://itunes.apple.com/us/app/domainsicle-domain-name-search/id511364723?ls=1&mt=8');
+        } else {
+            window.open('market://details?id=com.nagasagar.splitspends995349');
+        }
+    }
+})

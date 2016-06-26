@@ -1,17 +1,17 @@
-<ion-view title="Users" ng-controller="usercontrol" >
+<ion-view title="Users" ng-controller="usercontrol" nav-bar-class="'bar-'+{{appTheme}}" >
     <ion-nav-buttons side="right">
-        <button class=" button button-calm button-fab" ng-click="showaddUser()"><i class="icon ion-plus"></i></button>
+        <button class=" button button-stable button-fab" ng-click="showaddUser()"><i class="icon ion-plus" ng-class="appTheme"></i></button>
     </ion-nav-buttons>
     <ionic-header-bar class=" bar bar-subheader">
             <label class="item-input" >
-    <i class="icon ion-ios-search placeholder-icon"></i>
+    <i class="icon ion-ios-search placeholder-icon" ng-class="appTheme"></i>
     <input type="search" placeholder="Search" ng-model="searchText">
   </label>
     </ionic-header-bar>
     <ion-content  class="has-subheader">
         <ion-list show-delete="shouldShowDelete">
             <ion-item class="item-icon-left"ng-repeat="user in users | filter:searchText" href="#app/listusers/{{user.id}}" >
-            <i class="icon ion-ios-person positive"></i>
+            <i class="icon ion-ios-person" ng-class="appTheme"></i>
                 <b>{{user.name}}</b>
             </ion-item>
          </ion-list>

@@ -298,11 +298,11 @@ angular.module('starter.controllers').controller('usercontrol', function($scope,
             $ionicActionSheet.show({
                 titleText: 'Settle',
                 buttons: [{
-                    text: '<i class="icon ion-checkmark-circled"></i> Completely'
+                    text: '<i class="icon ion-checkmark-circled dark"></i><p class="dark">Completely</p>'
                 }, {
-                    text: '<i class="icon ion-ios-checkmark-outline"></i> partially'
+                    text: '<i class="icon ion-ios-checkmark-outline dark"></i><p class="dark">partially</p>'
                 }, ],
-                cancelText: 'Cancel',
+                cancelText: '<p class="dark">Cancel</p>',
                 cancel: function() {
                     console.log('CANCELLED');
                 },
@@ -328,14 +328,14 @@ angular.module('starter.controllers').controller('usercontrol', function($scope,
         $scope.showpartialsettlementPopup = function(suggestion) {
             $scope.popupdata = {}
             var myPopup = $ionicPopup.show({
-                template: '<input type="text" ng-model="popupdata.amount">',
+                template: '<input type="number" ng-model="popupdata.amount">',
                 title: 'Enter amount for settlement',
                 scope: $scope,
                 buttons: [{
                     text: '<button class="button-small"><p>cancel</p></button>'
                 }, {
                     text: '<button class="button-small"><p>settle</p></i>',
-                    type: 'button-positive',
+                    type: 'button-dark',
                     onTap: function(e) {
                         if (!$scope.popupdata.amount) {
                             //don't allow the user to close unless he enters wifi password

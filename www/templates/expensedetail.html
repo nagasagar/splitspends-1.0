@@ -1,27 +1,27 @@
 <ion-view title="Expense Details" hide-nav-bar="true">  
-    <ion-header-bar align-title="left" class="bar-positive">
+    <ion-header-bar align-title="left" ng-class="'bar-'+appTheme">
     <button class="button button-icon button-clear ion-chevron-left" ng-click="myGoBack()"></button>
     <h1 class="title">Expense Details</h1>
-        <button ng-click="showActionsheet()" class="button button-fab button-positive" side="right"><i class="icon ion-edit"></i></button>
+        <button ng-click="showActionsheet()" class="button button-fab button-stable" side="right"><i class="icon ion-edit" ng-class="appTheme"></i></button>
     </ion-header-bar>
     <ion-content  class="has-header">
         <div class="card">
-            <div class="item item-divider item-positive center">{{expensedata.detail}}</div>
+            <div class="item item-divider center" ng-class="'item-'+appTheme">{{expensedata.detail}}</div>
             <div class="list" ng-controller="expensedetailcontroltrl">
-                <div class="row "><div class="col positive bold">Amount</div><div class="col bold">{{expensedata.amount}}</div></div>
-                <div class="row "><div class="col positive bold">Date</div><div class="col bold">{{ expensedata.date | date:'dd-MMM-yy' }}</div></div>
-                <div class="row "><div class="col positive bold">Tagged group</div><div class="col bold">{{getgroupname(expensedata.taggedgroup)}}</div></div>
+                <div class="row "><div ng-class="appTheme" class="col bold">Amount</div><div class="col bold">{{expensedata.amount}}</div></div>
+                <div class="row "><div ng-class="appTheme" ng-class="appTheme" class="col bold">Date</div><div class="col bold">{{ expensedata.date | date:'dd-MMM-yy' }}</div></div>
+                <div class="row "><div ng-class="appTheme" class="col bold">Tagged group</div><div class="col bold">{{getgroupname(expensedata.taggedgroup)}}</div></div>
             </div>
             <ion-list class="card ">
-                <div class="item item-divider item-positive"> Paid By</div>
+                <div class="item item-divider" ng-class="'item-'+appTheme"> Paid By</div>
                 <div class="row" ng-repeat="con in expensedata.contrib">
-                    <div class="col positive bold">{{getusername(con.payee)}}</div><div class="col col-25 bold">{{con.amount}}</div>
+                    <div ng-class="appTheme" class="col bold">{{getusername(con.payee)}}</div><div class="col col-25 bold">{{con.amount}}</div>
                 </div>
             </ion-list>
             <ion-list class="card">
-                <div class="item item-divider item-positive"> Applicable To</div>
+                <div class="item item-divider" ng-class="'item-'+appTheme"> Applicable To</div>
                 <div class="row" ng-repeat="app in expensedata.applicable">
-                    <div class="col positive bold">{{getusername(app.payee)}}</div><div class="col col-25 bold">{{(app.amount).toFixed(2)}}</div>
+                    <div ng-class="appTheme" class="col bold">{{getusername(app.payee)}}</div><div class="col col-25 bold">{{(app.amount).toFixed(2)}}</div>
                 </div>
             </ion-list>
         </div> 

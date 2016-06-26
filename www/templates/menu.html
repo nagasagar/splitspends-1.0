@@ -1,6 +1,6 @@
-<ion-side-menus enable-menu-with-back-views="true">
-    <ion-side-menu-content>
-        <ion-nav-bar class="bar-positive">
+<ion-side-menus enable-menu-with-back-views="true" >
+    <ion-side-menu-content >
+        <ion-nav-bar class='bar-stable'>
             <ion-nav-buttons side="left">
                 <button class="button button-icon button-clear ion-navicon" menu-toggle="left">
                 </button>
@@ -14,27 +14,21 @@
     <ion-side-menu side="left" expose-aside-when="large">
         <ion-content>
             <ion-list>
-                <!--<ion-item nav-clear menu-close class="item-icon-left" ui-sref="app.addgroup" >
-                    <i class="icon ion-person-stalker"></i>Add Group
-                </ion-item>
-                <ion-item nav-clear menu-close class="item-icon-left" ui-sref="app.adduser">
-                    <i class="icon ion-person-add"></i>Add User
-                </ion-item>
-                <ion-item menu-close class="item-icon-left" ui-sref="app.addexpense">
-                    <i class="icon ion-cash"></i><b>Add Expense</b>
-                </ion-item>-->
-                <div class="item item-divider positive">Menu</div>
+                <div ng-class="'item-'+appTheme" class="item item-divider">Menu</div>
                 <ion-item menu-close class="item-icon-left" ui-sref="app.listgroups">
-                    <i class="icon ion-ios-people positive"></i><b>Groups</b>
+                    <i ng-class="appTheme" class="icon ion-ios-people"></i><b>Groups</b>
                 </ion-item>
                 <ion-item menu-close class="item-icon-left" ui-sref="app.listusers">
-                    <i class="icon ion-person positive"></i><b>Users</b>
+                    <i ng-class="appTheme" class="icon ion-person"></i><b>Users</b>
                 </ion-item>
                 <ion-item menu-close class="item-icon-left" ui-sref="app.listexpenses">
-                    <i class="icon ion-cash positive"></i><b>Expenses</b>
+                    <i ng-class="appTheme" class="icon ion-cash"></i><b>Expenses</b>
                 </ion-item>
                 <ion-item nav-clear menu-close class="item-icon-left" ui-sref="app.settings">
-                    <i class="icon ion-gear-b positive"></i><b>Settings</b>
+                    <i ng-class="appTheme" class="icon ion-gear-b"></i><b>Settings</b>
+                </ion-item>
+                <ion-item nav-clear menu-close class="item-icon-left" ui-sref="app.intro">
+                    <i ng-class="appTheme" class="icon ion-ios-help"></i><b>help</b>
                 </ion-item>
             </ion-list>
         </ion-content>

@@ -95,7 +95,7 @@ angular.module('starter.controllers').controller('groupcontrol', function($scope
         }
 
     })
-    .controller('groupdetailcontroltrl', function($q, $scope, $ionicActionSheet, $ionicPopup, $ionicModal, $timeout, $state, $stateParams, $ionicHistory,ionicToast, GroupService, ExpenseService, UserService) {
+    .controller('groupdetailcontroltrl', function($q, $scope, $rootScope, $ionicActionSheet, $ionicPopup, $ionicModal, $timeout, $state, $stateParams, $ionicHistory,ionicToast, GroupService, ExpenseService, UserService) {
         $scope.$on('$ionicView.enter', function() {
 
             $scope.getuserbalances()
@@ -165,6 +165,10 @@ angular.module('starter.controllers').controller('groupcontrol', function($scope
 
             });
         }
+        $scope.addexpensetogroup = function() {
+            $state.go("app.listexpenses");
+            $rootScope.$emit('addexpense2grp');
+        };
         $scope.toggleUserEntry = function(user) {
             if ($scope.isUserExpanded(user)) {
                 $scope.UserExpanded = null;
@@ -254,11 +258,11 @@ angular.module('starter.controllers').controller('groupcontrol', function($scope
             $ionicActionSheet.show({
                 titleText: 'Settle',
                 buttons: [{
-                    text: '<i class="icon ion-checkmark-circled"></i> Completely'
+                    text: '<i class="icon ion-checkmark-circled dark" ></i> <p class="dark">Completely</p>'
                 }, {
-                    text: '<i class="icon ion-ios-checkmark-outline"></i> partially'
+                    text: '<i class="icon ion-ios-checkmark-outline dark"></i> <p class="dark">partially</p>'
                 }, ],
-                cancelText: 'Cancel',
+                cancelText: '<p class="dark">Cancel</p>',
                 cancel: function() {
                     console.log('CANCELLED');
                 },
@@ -285,14 +289,14 @@ angular.module('starter.controllers').controller('groupcontrol', function($scope
         $scope.showpartialsettlementPopup = function(suggestion) {
             $scope.popupdata = {}
             var myPopup = $ionicPopup.show({
-                template: '<input type="text" ng-model="popupdata.amount">',
+                template: '<input type="number" ng-model="popupdata.amount">',
                 title: 'Enter amount for settlement',
                 scope: $scope,
                 buttons: [{
                     text: '<button class="button-small"><p>cancel</p></button>'
                 }, {
                     text: '<button class="button-small"><p>settle</p></i>',
-                    type: 'button-positive',
+                    type: 'button-dark',
                     onTap: function(e) {
                         if (!$scope.popupdata.amount) {
                             //don't allow the user to close unless he enters wifi password
@@ -341,14 +345,14 @@ angular.module('starter.controllers').controller('groupcontrol', function($scope
                 $scope.userswhocanbedelted = users;
             })
             var myPopup = $ionicPopup.show({
-                template: '<p class = "assertive"> <i class = "ion-information-circled assertive">Any pending settlements and expenses data will be lost</i></p><ion-checkbox ng-model = "deleteuserpopupdata.isChecked"> Delete Users of Group </ion-checkbox><p>Users of the group will be deleted only if they donot belong to any other existing group </p> ',
+                template: '<p class = "assertive"> <i class = "ion-information-circled assertive">Any pending settlements and expenses data will be lost</i></p><ion-checkbox class="checkbox-dark" ng-model = "deleteuserpopupdata.isChecked"> Delete Users of Group </ion-checkbox><p>Users of the group will be deleted only if they donot belong to any other existing group </p> ',
                 title: 'Delete Group',
                 scope: $scope,
                 buttons: [{
                     text: '<button class="button-small"><p>cancel</p></button>'
                 }, {
                     text: '<button class="button-small"><p>Delete</p></i>',
-                    type: 'button-positive',
+                    type: 'button-dark',
                     onTap: function(e) {
                         if ($scope.deleteuserpopupdata.isChecked) {
                             console.log($scope.userswhocanbedelted);
@@ -370,11 +374,11 @@ angular.module('starter.controllers').controller('groupcontrol', function($scope
             $ionicActionSheet.show({
                 titleText: 'Manage',
                 buttons: [{
-                    text: '<i class="icon ion-checkmark-circled"></i> Edit'
+                    text: '<i class="icon ion-edit dark"></i><p class="dark">Edit</p>'
                 }, {
-                    text: '<i class="icon ion-ios-checkmark-outline"></i> Delete'
+                    text: '<i class="icon ion-trash-b dark"></i><p class="dark"> Delete</p>'
                 }, ],
-                cancelText: 'Cancel',
+                cancelText: '<p class="dark">Cancel</p>',
                 cancel: function() {
                     console.log('CANCELLED');
                 },

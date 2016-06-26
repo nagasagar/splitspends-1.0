@@ -1,45 +1,45 @@
-<ion-modal-view view-title="Edit Group" class="positive">
-<ion-header-bar class="bar-positive">
+<ion-modal-view view-title="Edit Group" >
+<ion-header-bar class="bar" ng-class="'bar-'+appTheme">
 <button  ng-click="hideeditgroupmodal()" class="button button-clear icon ion-ios-arrow-back"></button>
 <h1 class="title">Edit Group</h1>
 </ion-header-bar>
 <ion-content has-subheader="false">
 <form name="editgroupform" ng-submit="editgroup(editgroupdata)">
     <label class="item item-input">
-        <span class="input-label"><b>Name</b></span>
+        <span class="input-label" ng-class="appTheme"><b ng-class="appTheme">Name</b></span>
         <input type="text" ng-model="editgroupdata.name" name="groupname" placeholder="enter the group name" required>
     </label>
     <div ng-show="editgroupform.$submitted || editgroupform.groupname.$touched">
         <p ng-show="editgroupform.groupname.$error.required">please enter group name..</p>
     </div>
     <ion-list>
-    <div class="positive item item-divider positive"> Current Users : </div>
+    <div class="item item-divider" ng-class="appTheme"> Current Users : </div>
     <div class="item item-text-wrap chipcontainer">
         <span class="chip-close " ng-repeat = "user in currentusers" ng-click="marktoberemoved(user)">{{user.name}} </span>
     </div>
-    <div class="positive item item-divider"> Users to be removed : </div>
+    <div class="item item-divider" ng-class="appTheme"> Users to be removed : </div>
     <div class="item item-text-wrap chipcontainer">
-        <span class="chip-close" ng-repeat = "user in editgroupdata.userstoberemoved" ng-click="unmarktoberemoved(user)">{{user.name+" "}}</span>
+        <span class="chip-close" ng-class="appTheme" ng-repeat = "user in editgroupdata.userstoberemoved" ng-click="unmarktoberemoved(user)">{{user.name+" "}}</span>
     </div>
     
-    <div class="positive item item-divider"> Add more users : </div>
+    <div class="item item-divider" ng-class="appTheme"> Add more users : </div>
     <div class="item row" ng-click="showremainingusers()" ng-model="editgroupdata.users">
         <span class="col input">{{place_selectusers}}</span>
     </div>
     </ion-list>
-    <button class="button button-block button-positive" type="submit">Edit</button>
+    <button class="button button-block button" ng-class="'button-'+appTheme" type="submit">Edit</button>
 </form>
 </ion-content>
 </ion-modal-view>
 <script id="selectremainingusers.html" type="text/ng-template">
 <div class="modal">
-    <ion-header-bar class="bar-positive">
+    <ion-header-bar class="bar" ng-class="'bar-'+appTheme">
     <button ng-click="hideremainingusers()" class="button button-clear button-icon ion-ios-arrow-back"></button>
     <h1 class="title">Select users</h1>
     <button ng-click="validatenewusers()" class="button button-clear  ion-checkmark"></button>
     </ion-header-bar>
     <ion-content padding="true" class="has-header">
-    <ion-checkbox ng-repeat="user in remainingusers" ng-model="formdata.selectusers[user.id]" class="item tem-text-wrap">{{user.name}}</ion-checkbox>
+    <ion-checkbox ng-repeat="user in remainingusers" ng-model="formdata.selectusers[user.id]" class="item tem-text-wrap" ng-class="'checkbox-'+appTheme">{{user.name}}</ion-checkbox>
     </ion-content>
 </div>
 </script>

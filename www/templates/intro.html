@@ -1,0 +1,46 @@
+<ion-view view-title="Introduction">
+    <ion-nav-bar class="bar-positive">
+    </ion-nav-bar>
+    <ion-nav-buttons side="left">
+        <button class="button button-clear " ng-click="startApp()" ng-show="!slideIndex">
+            Skip
+        </button>
+        <button class="button button-clear icon ion-arrow-left-c" ng-click="previous()" ng-show="slideIndex > 0">
+        </button>
+    </ion-nav-buttons>
+    <ion-nav-buttons side="right">
+        <button class="button button-clear icon ion-arrow-right-c" ng-click="next()" ng-show="slideIndex != 1">
+        </button>
+        <button class="button button-clear" ng-click="startApp()" ng-show="slideIndex == 1">
+            GO!
+        </button>
+    </ion-nav-buttons>
+    <ion-content>
+        <ion-slide-box on-slide-changed="slideChanged(index)">
+            <ion-slide class="box">
+                <h4>Thank you for choosing SplitSpends !</h4>
+                </br>
+                <div id="logo">
+                    <img src="img/splitspends.png" style="width: 60%; height: auto;">
+                </div>
+                <p>Smarter way to split expenses</p>
+                <p>among friends</p>
+                </br>
+                </br>
+                </br>
+            </ion-slide>
+            <ion-slide>
+                <h3>Using SplitSpends</h3>
+                <h5>Just three steps:</h5>
+                <div class="spacer" style="display: inline-block; width: 300px; height: 30px;"></div>
+                <ion-list>
+                    <ion-item class="item-icon-left item-avatar"><i class="icon-left ion-ios-checkmarks icon" ></i>
+                        <b class="positive">Add Group</b></ion-item>
+                    <ion-item class="item-icon-left item-avatar"><i class="icon-left ion-ios-checkmarks icon" nclass="positive"></i><b class="positive">Add Users to the group</b></ion-item>
+                    <ion-item class="item-icon-left item-avatar"><i class="icon-left ion-checkmarks icon" ></i><b class="positive">Add Expenses & Share</b></ion-item>
+                </ion-list>
+                <button class="button button-positive" ng-click="startApp()">Go!</button>
+            </ion-slide>
+        </ion-slide-box>
+    </ion-content>
+</ion-view>

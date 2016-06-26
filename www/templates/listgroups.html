@@ -1,17 +1,17 @@
-<ion-view title="Groups" ng-controller="groupcontrol" >
+<ion-view title="Groups" ng-controller="groupcontrol" nav-bar-class="'bar-'+{{appTheme}}">
     <ion-nav-buttons side="right">
-        <button class=" button button-fab button-positive" ng-click="showaddgroupmodal()"><i class="icon ion-plus"></i></button>
+        <button class=" button button-fab button-stable" ng-click="showaddgroupmodal()"><i class="icon ion-plus" ng-class="appTheme"></i></button>
     </ion-nav-buttons>
     <ionic-header-bar class=" bar bar-subheader">
             <label class="item-input" >
-    <i class="icon ion-ios-search placeholder-icon"></i>
+    <i class="icon ion-ios-search placeholder-icon" ng-class="appTheme"></i>
     <input type="search" placeholder="Search" ng-model="searchText">
   </label>
     </ionic-header-bar>
     <ion-content  class="has-subheader">
         <ion-list  show-delete="shouldShowDelete" can-swipe="listCanSwipe">
             <ion-item class="item-icon-left" ng-repeat="group in groups| filter:searchText" href="#app/listgroups/{{group.id}}">
-                <i class="icon ion-ios-people positive"></i>
+                <i class="icon ion-ios-people" ng-class="appTheme"></i>
                 <b>{{group.name}}</b>
             </ion-item>
          </ion-list>

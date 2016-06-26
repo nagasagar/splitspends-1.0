@@ -1,4 +1,12 @@
 {
-  "name": "splitspense",
-  "app_id": "2b9ab32f"
+  "name": "splitspends",
+  "app_id": "2b9ab32f",
+  "gulpStartupTasks": [
+    "sass",
+    "watch"
+  ],
+  "watchPatterns": [
+    "www/**/*",
+    "!www/lib/**/*"
+  ]
 }

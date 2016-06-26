@@ -1,34 +1,34 @@
 <ion-modal-view >
-    <ion-tabs class="tabs-stable tabs-positive">
+    <ion-tabs ng-class="'tabs-'+appTheme">
         <ion-tab title="Equally">
-            <ion-header-bar class="bar-positive">
+            <ion-header-bar class="bar" ng-class="'bar-'+appTheme">
                 <button ng-click="hideapplicable()" class="button  button-clear button-icon ion-ios-arrow-back"></button>
                 <h1 class="title">Applicable Equally</h1>
                  <button ng-click="validateapplicable_equal()" class="button  button-clear button-icon ion-checkmark"></button>
             </ion-header-bar>
             <ion-content padding="true" class="has-header">
                 <div class="button-bar balanced">
-                    <button class="button  button-positive icon-left icon-inline " ng-click="checkall()">Check all</button>
-                    <button class="button  button-positive icon-left icon-inline " ng-click="uncheckall()">Uncheck all</button>
+                    <button class="button  icon-left icon-inline " ng-class="'button-'+appTheme" ng-click="checkall()">Check all</button>
+                    <button class="button  icon-left icon-inline " ng-class="'button-'+appTheme" ng-click="uncheckall()">Uncheck all</button>
                 </div>
-                <ion-checkbox ng-repeat="user in users" ng-model="formdata.applicableequally[user.id]" class="item tem-text-wrap">{{user.name}}</ion-checkbox>
+                <ion-checkbox ng-repeat="user in users" ng-model="formdata.applicableequally[user.id]" class="item tem-text-wrap" ng-class="'checkbox-'+appTheme+' '+appTheme">{{user.name}}</ion-checkbox>
 
                 <div class="item">Total <b>{{totalamt.toFixed(2)}}</b> will be applicable to <b>{{getnumberofapplicable()}}</b> users</div>
-                <div class="item">amountapplicabe to each user :<span id="ps"><b>{{(totalamt/getnumberofapplicable()).toFixed(2)}}</b></span>
+                <div class="item">amount applicabe to each :<span id="ps"><b>{{(totalamt/getnumberofapplicable()).toFixed(2)}}</b></span>
 
             </ion-content>
         </ion-tab>
         <ion-tab title="Unequally">
-            <ion-header-bar class="bar-positive">
+            <ion-header-bar class="bar" ng-class="'bar-'+appTheme">
                 <button ng-click="hideapplicable()" class="button button-clear button-icon ion-ios-arrow-back"></button>
                 <h1 class="title">Applicable Unequally</h1>
                <button ng-click="validateapplicable_unequal()" class="button button-clear button-icon ion-checkmark"></button>
             </ion-header-bar>
             <ion-content  class="has-header">
                 <form name="userForm">
-                    <label class="item item-input " ng-repeat="user in users" >
-                        <span class="input-label">{{user.name}}</span>
-                        <input type="number" ng-model="formdata.applicableunequally[user.id]" placeholder=0>
+                    <label class="item item-input " ng-repeat="user in users">
+                        <span class="input-label" ng-class="appTheme">{{user.name}}</span>
+                        <input type="number" class="center" ng-model="formdata.applicableunequally[user.id]" placeholder=0>
                     </label>
                     <div class="item">Total <b>{{gettotal(formdata.applicableunequally).toFixed(2)}}</b> of   <b>{{totalamt.toFixed(2)}}</b></div>
                     <div class="item" name="remaining_amount" id="remaining_amount">remaining <span id="apprem"><b>{{(totalamt-gettotal(formdata.applicableunequally)).toFixed(2)}}</b></span></div>

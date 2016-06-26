@@ -1,7 +1,7 @@
 angular.module('starter.services', ['starter.config'])
 
 // DB wrapper
-.factory('DB', function($q, $cordovaSQLite, DB_CONFIG) {
+.factory('DB', function($q, $cordovaSQLite,$ionicPlatform, DB_CONFIG) {
     var self = this;
     self.db = null;
 
@@ -39,10 +39,12 @@ angular.module('starter.services', ['starter.config'])
         bindings = typeof bindings !== 'undefined' ? bindings : [];
         var deferred = $q.defer();
         if (window.cordova) {
-            $cordovaSQLite.execute(self.db, query, bindings).then(function(result) {
-                deferred.resolve(result);
-            }, function(err) {
-                deferred.reject(err);
+            $ionicPlatform.ready(function() {
+                $cordovaSQLite.execute(self.db, query, bindings).then(function(result) {
+                    deferred.resolve(result);
+                }, function(err) {
+                    deferred.reject(err);
+                });
             });
         } else {
             self.db.transaction(function(transaction) {
@@ -252,8 +254,8 @@ angular.module('starter.services', ['starter.config'])
     self.deleteuser = function(usr_id) {
         deleteusersquery = "delete from usr where usr_id=(?)";
         return DB.query(deleteusersquery, [usr_id]).then(function(result) {
-                return result;
-            });
+            return result;
+        });
     }
 
     self.checktransactions = function(usr, grp_id) {
@@ -437,7 +439,7 @@ angular.module('starter.services', ['starter.config'])
         self.editgroup = function(grp_data) {
             var deferred = $q.defer();
             updategroupnamequery = "update grp set grp_name = (?) where grp_id=(?)";;
-            return DB.query(updategroupnamequery, [grp_data.name, grp_data.id]).then(function(result) {
+            DB.query(updategroupnamequery, [grp_data.name, grp_data.id]).then(function(result) {
                 if (grp_data.users) {
                     userids = grp_data.users.split(";");
                     for (var i = 0; i < grp_data.users.split(";").length; i++) {
@@ -448,21 +450,18 @@ angular.module('starter.services', ['starter.config'])
                             })
                         }
                     }
-                    if (grp_data.userstoberemoved){
-                        angular.forEach(grp_data.userstoberemoved,function(user) {
-                            var query = "delete FROM grp_usr where grp_id=(?) and usr_id=(?)";
-                            DB.query(query, [grp_data.id, user.id]).then(function(res) {
-                            })
-                        });
-
-                    }
                     deferred.resolve(result.rowsaffected);
                 } else {
                     deferred.resolve(result.rowsaffected);
                 }
+                angular.forEach(grp_data.userstoberemoved, function(user) {
+                            var query = "delete FROM grp_usr where grp_id=(?) and usr_id=(?)";
+                            DB.query(query, [grp_data.id, user.id]).then(function(res) {})
+                        });
             }, function(err) {
                 deferred.reject(err);
             });
+        return deferred.promise;
         };
 
         self.getusergroupswithmembers = function(usr_id) {

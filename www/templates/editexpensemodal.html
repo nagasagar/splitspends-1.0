@@ -1,5 +1,5 @@
 <ion-modal-view title="Edit Expense" >
-    <ion-header-bar class="bar-positive">
+    <ion-header-bar class="bar" ng-class="'bar-'+appTheme">
         <button  ng-click="hideeditexpensemodal()" class="button button-clear icon ion-ios-arrow-back"></button>
         <h1 class="title">Edit Expense</h1>
     </ion-header-bar>
@@ -7,7 +7,7 @@
         <form name="editexpenseform" ng-submit="editexpense(editexpenseform)" novalidate="">
         <div class=" inset-list ">
             <label class="item item-stable item-input">
-                <span class="input-label positive"><b>Detail</b></span>
+                <span class="input-label" ><b ng-class="appTheme">Detail</b></span>
                 <input class="lightgray" type="text" placeholder="enter the bill detail" ng-model="editexpensedata.detail" name="detail" required>
             </label>
             <div class="form-errors" 
@@ -20,7 +20,7 @@
             </div>-->
 
             <label class="item item-stable item-input" >
-                <span class="input-label positive"><b>Amount</b></span>
+                <span class="input-label" ><b ng-class="appTheme">Amount</b></span>
                 <input type="number" number placeholder="enter the bill amount" ng-model="editexpensedata.amount" id="amount" name="amount" min="0.1" required />
             </label>
             <div class="form-errors"  
@@ -35,7 +35,7 @@
             <p ng-show="editexpenseform.amount.$error.number">bill amount should be numeric value</p>
             <p ng-show="editexpenseform.amount.$error.min">bill amount should be greater than 0</p>-->
             <label class="item item-stable item-input">
-                <span class="input-label positive"><b>Date</b></span>
+                <span class="input-label" ><b ng-class="appTheme">Date</b></span>
                 <input type="date" ng-model="editexpensedata.date" name="date" required>
             </label>
             <div class="form-errors" 
@@ -46,8 +46,8 @@
         </div>
         <div class="inset-list ">
             <div class="item item-stable item-select"  ng-class="{ 'has-error-lr' : editexpenseform.taggedgroup.$invalid }" >
-                <span class="input-label positive "><b>Tag to group</b></span>
-                <select ng-model="editexpensedata.taggedgroup" ng-options="group.id as group.name for group in groups" ng-selected= "{{group.id == editexpensedata.taggedgroup}}" ng-change="setusers(editexpensedata.taggedgroup)" name="taggedgroup" placeholder="select.." required>
+                <span class="input-label" ><b ng-class="appTheme">Tag to group</b><p class="small-icon">(Can't be changed)</p></span>
+                <select ng-model="editexpensedata.taggedgroup" ng-options="group.id as group.name for group in groups" ng-selected= "{{group.id == editexpensedata.taggedgroup}}" ng-change="setusers(editexpensedata.taggedgroup)" name="taggedgroup" placeholder="select.." ng-disabled="true" required>
                 </select>
             </div>
         </div>
@@ -58,7 +58,7 @@
         </div> 
         <div class="inset-list ">
             <div class="item item-stable" ng-click="slectspenders(editexpenseform)">
-                <span class="input-label positive "><b>Paid By</b></span><span class="select  item-text-wrap">{{editexpensedata.place_spentby}}</span>
+                <span class="input-label " ><b ng-class="appTheme">Paid By</b></span><span class="select  item-text-wrap">{{editexpensedata.place_spentby}}</span>
             </div>
         </div>
         <div ng-show="editexpenseform.$submitted && editexpensedata.contrib==undefined">
@@ -69,7 +69,7 @@
         </div>
         <div class="inset-list ">
             <div class="item item-stable " ng-click="slectapplicable(editexpenseform)">
-                 <span class="input-label positive"><b>Applicable to</b></span><span class="select  item-text-wrap">{{editexpensedata.place_applicableto}}</span>
+                 <span class="input-label"><b ng-class="appTheme">Applicable to</b></span><span class="select  item-text-wrap">{{editexpensedata.place_applicableto}}</span>
             </div>
         </div>
         <div ng-show="editexpenseform.$submitted && editexpensedata.applicable==undefined">
@@ -78,7 +78,7 @@
         <div ng-show="editexpenseform.$submitted && editexpensedata.amount != geteditexpenseapplicabletotal()">
             <p class="assertive"><i class="ion-information-circled assertive">amount and applicables total mismatch..</i></p>
         </div>
-         <button class="button button-positive button-block " type="submit">Edit Expense</button>
+         <button class="button button-block " ng-class="'button-'+appTheme" type="submit">Edit Expense</button>
         </form>
     </ion-content>
 </ion-modal-view>

@@ -1,17 +1,17 @@
-<ion-view title={{user.name}}>
+<ion-view title={{user.name}} nav-bar-class="'bar-'+{{appTheme}}">
 <ion-nav-buttons side="right">
-        <button class=" button button-positive button-fab" ng-click="showeditusermodal()"><i class="icon ion-edit"></i></button>
+        <button class=" button button-stable button-fab" ng-click="showeditusermodal()"><i class="icon ion-edit" ng-class="appTheme"></i></button>
 </ion-nav-buttons>        
 <ion-pane>
-   <ion-tabs class=" tabs-striped tabs-positive">
+   <ion-tabs class=" tabs-striped" ng-class="'tabs-'+appTheme">
         <ion-tab title="Payments">
-            <ion-nav-bar class="bar-positive"></ion-nav-bar>
+            <ion-nav-bar class="bar" ng-class="'bar-'+appTheme"></ion-nav-bar>
             <ion-content padding="true" class="has-header">
             <div class="item">
-                <b class="positive">Groups : </b><span class="item-text-wrap chipcontainer" ng-repeat = "group in groups"><p class="chip">{{group.name}}</p> </span>
+                <b ng-class="appTheme">Groups : </b><span class="item-text-wrap chipcontainer" ng-repeat = "group in groups"><p class="chip">{{group.name}}</p> </span>
             </div>
             <div class="row "></div>
-            <div class="row item item-icon-right bar item-divider bar-positive"><div class="col center"><b>Payments</b></div>
+            <div class="row item item-icon-right bar item-divider bar" ng-class="'bar-'+appTheme"><div class="col center"><b>Payments</b></div>
             <i class="ion-android-more-vertical icon" ng-click="togglesearch()"></i></div>
             <div class="row item-divider" ng-show="isSearchbarShown()">
             <div class="col center">
@@ -23,21 +23,21 @@
             </div> 
             <ion-list>
                 <ion-item class="item-icon-left item-text-wrap" ng-repeat="payment in payments | filter:searchText"  class="item" href="#app/listexpenses/{{payment.exp_id}}">
-                    <i class="icon ion-android-document"></i> <h2>{{payment.exp_name}}</h2>
-                    <p><i class="ion-ios-pricetag small-icon"> {{payment.grp_name}}</i></p>
+                    <i class="icon ion-android-document" ng-class="appTheme"></i> <h2>{{payment.exp_name}}</h2>
+                    <p><i class="ion-ios-pricetag small-icon" ng-class="appTheme"> {{payment.grp_name}}</i></p>
                     <b class="badge dark">{{payment.paid_amt}}/{{payment.exp_amt}}</b>
                 </ion-item>
             </ion-list>
             </ion-content>
         </ion-tab>
         <ion-tab title="Spends">
-            <ion-nav-bar class="bar-positive"></ion-nav-bar>
+            <ion-nav-bar class="bar" ng-class="'bar-'+appTheme"></ion-nav-bar>
             <ion-content padding="true" class="has-header">
             <div class="item ">
-                <b class="positive">Groups : </b><span class="item-text-wrap chipcontainer" ng-repeat = "group in groups"><p class="chip">{{group.name}}</p> </span>
+                <b ng-class="appTheme">Groups : </b><span class="item-text-wrap chipcontainer" ng-repeat = "group in groups"><p class="chip">{{group.name}}</p> </span>
             </div>
             <div class="row "></div>
-            <div class="row item item-icon-right bar item-divider bar-positive"><div class="col center"><b>Spends</b></div>
+            <div class="row item item-icon-right bar item-divider bar" ng-class="'bar-'+appTheme"><div class="col center"><b>Spends</b></div>
             <i class="icon ion-android-more-vertical" ng-click="togglesearch()"></i></div>
             <div class="row item-divider" ng-show="isSearchbarShown()">
             <div class="col center">
@@ -49,40 +49,40 @@
             </div> 
             <ion-list>
                 <ion-item class="item-icon-left icon item-text-wrap" ng-repeat="spend in spends | filter:searchText"  class="item" href="#app/listexpenses/{{spend.exp_id}}">
-                    <i class="icon ion-android-document"> </i>{{spend.exp_name}}
-                    <p><i class="ion-ios-pricetag small-icon"> {{spend.grp_name}}</i></p>
+                    <i class="icon ion-android-document" ng-class="appTheme"> </i>{{spend.exp_name}}
+                    <p><i class="ion-ios-pricetag small-icon" ng-class="appTheme"> {{spend.grp_name}}</i></p>
                     <b class="badge dark">{{spend.applicable_amt.toFixed(2)}}</b>
             </ion-item>
             </ion-list>
             </ion-content>
         </ion-tab>
         <ion-tab title="Summary" on-select="updateuserbalances()">
-            <ion-nav-bar class="bar-positive"></ion-nav-bar>
+            <ion-nav-bar class="bar" ng-class="'bar-'+appTheme"></ion-nav-bar>
             <ion-content padding="true" class="has-header">
             <ion-refresher on-refresh="doRefresh()"></ion-refresher>
-            <div class=" item bar item-divider bar-positive"><div class="col center"><b>Summary</b></div></div>
+            <div class=" item bar item-divider bar"ng-class="'bar-'+appTheme"><div class="col center"><b>Summary</b></div></div>
                 <div class="item">
-                    <h3><b>Totals</b></h3>
-                    <p> payments / expenses : </p>
+                    <h3 ng-class="appTheme"><b ng-class="appTheme">Totals</b></h3>
+                    <p > payments / expenses : </p>
                     <span class="badge"><span class="balanced"> {{total_payments.toFixed(1)}} <b class="dark"> / </b> </span> <span class="assertive">{{(total_spends).toFixed(1)}}</span></span>
                 </div>
                 <div class="item">
-                    <h3><b>Settlements</b></h3>
+                    <h3 ng-class="appTheme"><b ng-class="appTheme">Settlements</b></h3>
                     <p> made / recieved:</p>
                     <span class="badge"><span class="balanced"> {{(settlementstotal.made).toFixed(1) }} <b class="dark"> / </b> </span><span class="assertive"> {{(settlementstotal.recieved).toFixed(1)}}</b> </span>
                 </div>
                 <div class="item">
-                    <h3><b> Total Balance : </b></h3><span class="badge" ng-class="(total_payments-total_spends+settlementstotal.made-settlementstotal.recieved)>=0 ? 'balanced' : 'assertive'">{{(total_payments-total_spends+settlementstotal.made-settlementstotal.recieved).toFixed(2)}}</span>
+                    <h3 ng-class="appTheme"><b ng-class="appTheme"> Total Balance : </b></h3><span class="badge" ng-class="(total_payments-total_spends+settlementstotal.made-settlementstotal.recieved)>=0 ? 'balanced' : 'assertive'">{{(total_payments-total_spends+settlementstotal.made-settlementstotal.recieved).toFixed(2)}}</span>
                 </div>
-            <div class=" item bar item-divider bar-positive"><div class="col center"><b>Pending Settlements </b></div></div>
+            <div class=" item bar item-divider bar" ng-class="'bar-'+appTheme"><div class="col center"><b>Pending Settlements </b></div></div>
             <div ng-repeat="groupbalance in groupbalances" class="item" >
-                <span class="icon positive" ng-class="groupbalance.balance==0 ? '' : 'ion-ios-plus'" ng-click="groupbalance.balance==0 ? d():showusersettlements(groupbalance)"></span>
-                <span > {{groupbalance.name}}</span>
+                <span class="icon" ng-class="groupbalance.balance==0 ? '' : 'ion-ios-plus '+appTheme"  ng-click="groupbalance.balance==0 ? d():showusersettlements(groupbalance)"></span>
+                <span ng-class="appTheme"> {{groupbalance.name}}</span>
                 <span class="badge"><b ng-class="groupbalance.balance>=0 ? 'balanced' : 'assertive'">{{groupbalance.balance.toFixed(2)}}</b></span>
                 <ion-list>
                 <div class="item-accordion" ng-show="issettlementsshown(groupbalance)">
-                    <div ng-repeat="suggestion in suggestions" class="item" ng-click="showActionsheet(suggestion)">
-                        <span > {{suggestion.from.name}}  <i class="ion-arrow-right-c positive"></i>  {{suggestion.to.name}} </span>
+                    <div ng-repeat="suggestion in suggestions" class="item small-icon" ng-click="showActionsheet(suggestion)">
+                        <p > {{suggestion.from.name}}  <i class="ion-arrow-right-c small-icon" ng-class="appTheme"></i>  {{suggestion.to.name}} </p>
                         <span class="badge" ng-class="suggestion.from.id==currentuser ? 'assertive' : 'balanced'">{{suggestion.amt.toFixed(2)}}</span>
                     </div>
                 </div>
@@ -92,35 +92,35 @@
             </ion-content>
         </ion-tab>
         <ion-tab title="Settlements" on-select="updateuserbalances()">
-        <ion-nav-bar class="bar-positive"></ion-nav-bar>
+        <ion-nav-bar class="bar" ng-class="'bar-'+appTheme"></ion-nav-bar>
             <ion-content padding="true" class="has-header">
             <ion-refresher on-refresh="doRefresh()"></ion-refresher>
-            <div class=" item bar item-divider bar-positive"><div class="col center"><b>Setttlements</b></div></div>
+            <div class=" item bar item-divider bar"ng-class="'bar-'+appTheme"><div class="col center"><b >Setttlements</b></div></div>
             <ion-list><div class="item"></div></ion-list>
-             <div class="row item item-divider positive item-icon-right" ng-click="togglesettlements_made()">
-                <div class="col col-90 center"><b>Settlements Made</b></div>
+             <div class="row item item-divider item-icon-right" ng-class="appTheme" ng-click="togglesettlements_made()">
+                <div class="col col-90 center"><b ng-class="appTheme">Settlements Made</b></div>
                 <div class="col col-10"><i ng-class="issettlements_madeshown() ? '' : 'ion-android-more-vertical'"></i></div>
             </div>
             <ion-list>
             <div class="item-accordion" ng-show="issettlements_madeshown(groupbalance)">
                 <div ng-repeat="settlement in settlements_made" class="item">
-                    <span > {{settlement.from.name}}  <i class="ion-arrow-right-c positive"></i>  {{settlement.to.name}} </span>
-                    <p><i class="ion-ios-pricetag small-icon"> {{settlement.group.name}}</i></p>
-                    <span class="badge positive"><b>{{settlement.amount.toFixed(2)}}</b></span>
+                    <span > {{settlement.from.name}}  <i class="ion-arrow-right-c" ng-class="appTheme"></i>  {{settlement.to.name}} </span>
+                    <p ><i class="ion-ios-pricetag small-icon" ng-class="appTheme"> {{settlement.group.name}}</i></p>
+                    <span class="badge" ng-class="appTheme"><b ng-class="appTheme">{{settlement.amount.toFixed(2)}}</b></span>
                 </div>
             </div>
             </ion-list>
             <ion-list><div class="item"></div></ion-list>
-            <div class="row item item-divider positive item-icon-right" ng-click="togglesettlements_recieved()">
-                <div class="col col-90 center"><b>Settlements Recieved</b></div>
+            <div class="row item item-divider item-icon-right" ng-class="appTheme" ng-click="togglesettlements_recieved()">
+                <div class="col col-90 center"><b ng-class="appTheme">Settlements Recieved</b></div>
                 <div class="col col-10"><i ng-class="issettlements_recievedshown() ? '' : 'ion-android-more-vertical'"></i></div>
             </div>
             <ion-list>
             <div class="item-accordion" ng-show="issettlements_recievedshown(groupbalance)">
                 <div ng-repeat="settlement in settlements_recieved" class="item">
-                    <span > {{settlement.from.name}}  <i class="ion-arrow-right-c positive"></i>  {{settlement.to.name}} </span>
-                    <p><i class="ion-ios-pricetag small-icon"> {{settlement.group.name}}</i></p>
-                    <span class="badge positive"><b>{{settlement.amount.toFixed(2)}}</b></span>
+                    <span > {{settlement.from.name}}  <i class="ion-arrow-right-c" ng-class="appTheme"></i>  {{settlement.to.name}} </span>
+                    <p><i class="ion-ios-pricetag small-icon" ng-class="appTheme"> {{settlement.group.name}}</i></p>
+                    <span class="badge" ng-class="appTheme" ><b ng-class="appTheme">{{settlement.amount.toFixed(2)}}</b></span>
                 </div>
                 <div class="item"></div>
             </div>

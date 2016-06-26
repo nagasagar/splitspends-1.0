@@ -4,9 +4,9 @@
 // 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
 // the 2nd parameter is an array of 'requires'
 // 'starter.controllers' is found in controllers.js
-angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', 'ngMessages', 'ngCordova','ionic-toast'])
+angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', 'ngMessages', 'ngCordova', 'ionic-toast', 'ngSpecialOffer', 'ngStorage'])
 
-.run(function($ionicPlatform, $cordovaSQLite, DB) {
+.run(function($ionicPlatform, $specialOffer, $cordovaSQLite, $rootScope, $window,$state,$ionicHistory, DB) {
     $ionicPlatform.ready(function() {
         // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
         // for form inputs)
@@ -19,6 +19,51 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
         }
         //$cordovaSQLite.deleteDB("my.db");
         DB.init();
+        var introdone = $window.localStorage.introdone;
+        
+
+        // App theme
+        var selectedTheme = $window.localStorage.appTheme;
+        if (selectedTheme) {
+            $rootScope.appTheme = selectedTheme;
+            $rootScope.appTheme_bar = "bar-" + selectedTheme;
+        } else {
+            $rootScope.appTheme = 'positive';
+            $rootScope.appTheme_bar = "bar-" + "positive";
+        }
+        if (!introdone) {
+            $window.localStorage.introdone = true;
+            $state.go("app.intro")
+        } else{
+            $ionicHistory.nextViewOptions({
+            historyRoot: true
+            })
+            $state.go("app.listgroups")
+            $ionicHistory.clearHistory();
+        }
+
+        $specialOffer.init({
+            id: 'Split Spends',
+            showOnCount: 5,
+            title: 'Rate Us',
+            text: 'If you like this app please rate us',
+            agreeLabel: 'Rate App',
+            remindLabel: 'Remind Me',
+            declineLabel: 'No Thanks',
+            onAgree: function() {
+                if (device.platform === "ios") {
+                    window.open($specialOffer.appStoreUrl(iosId));
+                } else {
+                    window.open('market://details?id=com.nagasagar.splitspends995349');
+                }
+            },
+            onDecline: function() {
+                // declined
+            },
+            onRemindMeLater: function() {
+                // will be reminded in 5 more uses
+            }
+        });
     });
 })
 
@@ -36,7 +81,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
                 views: {
                     'menuContent': {
                         templateUrl: "templates/settings.html",
-                        controller: 'usercontrol'
+                        controller: 'settingscontrol'
                     }
                 }
             })
@@ -82,6 +127,15 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
                     'menuContent': {
                         templateUrl: "templates/expensedetail.html",
                         controller: 'expensedetailcontroltrl'
+                    }
+                }
+            })
+            .state('app.intro', {
+                url: '/intro',
+                views: {
+                    'menuContent': {
+                        templateUrl: "templates/intro.html",
+                        controller: 'IntroCtrl'
                     }
                 }
             })
@@ -166,4 +220,57 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
             $delegate.serial = serial;
             return $delegate;
         });
+    })
+    .directive('navBarClass', function() {
+        return {
+            restrict: 'A',
+            compile: function(element, attrs) {
+
+                // We need to be able to add a class the cached nav-bar
+                // Which provides the background color
+                var cachedNavBar = document.querySelector('.nav-bar-block[nav-bar="cached"]');
+                var cachedHeaderBar = cachedNavBar.querySelector('.bar-header');
+
+                // And also the active nav-bar
+                // which provides the right class for the title
+                var activeNavBar = document.querySelector('.nav-bar-block[nav-bar="active"]');
+                var activeHeaderBar = activeNavBar.querySelector('.bar-header');
+                var barClass = attrs.navBarClass;
+                var ogColors = [];
+                var colors = ['positive', 'stable', 'light', 'royal', 'dark', 'assertive', 'calm', 'energized'];
+                var cleanUp = function() {
+                    for (var i = 0; i < colors.length; i++) {
+                        var currentColor = activeHeaderBar.classList.contains('bar-' + colors[i]);
+                        if (currentColor) {
+                            ogColors.push('bar-' + colors[i]);
+                        }
+                        activeHeaderBar.classList.remove('bar-' + colors[i]);
+                        cachedHeaderBar.classList.remove('bar-' + colors[i]);
+                    }
+                };
+                return function($scope) {
+                    $scope.$on('$ionicView.beforeEnter', function() {
+                        cleanUp();
+                        cachedHeaderBar.classList.add($scope.appTheme_bar);
+                        activeHeaderBar.classList.add($scope.appTheme_bar);
+                    });
+                    $scope.$on('$ionicView.enter', function() {
+                        cleanUp();
+                        cachedHeaderBar.classList.add($scope.appTheme_bar);
+                        activeHeaderBar.classList.add($scope.appTheme_bar);
+                    });
+
+                    $scope.$on('$stateChangeStart', function(event, toState, toParams, fromState, fromParams) {
+                        for (var j = 0; j < ogColors.length; j++) {
+                            activeHeaderBar.classList.add(ogColors[j]);
+                            cachedHeaderBar.classList.add(ogColors[j]);
+                        }
+                        cachedHeaderBar.classList.remove($scope.appTheme_bar);
+                        activeHeaderBar.classList.remove($scope.appTheme_bar);
+                        ogColors = [];
+
+                    });
+                };
+            }
+        };
     });

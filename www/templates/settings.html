@@ -1,28 +1,39 @@
-<ion-view view-title="Settings">
+<ion-view view-title="Settings" nav-bar-class="'bar-'+{{appTheme}}">
 <ion-content has-subheader="true">
 </br>
 
 <div class="card">
-  <ion-item class="item-divider item-stable positive item-icon-right"><b class="positive">Export </b><i class=" icon ion-log-out" ng-click="export_json()"></i></ion-item>
-  <div class="item item-text-wrap">
-    <p>Export Application data to a .json file . Which can be imported later.</p>
+  <ion-item class="item-divider item-stable item-icon-right" ng-class="'item-'+appTheme"><b>Change Theme</b></ion-item>
+  <div class="row " >
+    <label class="item item-input">
+            <button ng-class="'button button-block button-'+appTheme" ng-click="showselectthememodal()" >Slelect..</button>
+          </label>
   </div>
 </div>
-<ion-list></ion-list>
-<div class="card">
-  <ion-item class="item-divider item-stable positive item-icon-right"><b class="positive">Import</b> <i class=" icon ion-log-in" ng-click="import_json()"></i></ion-item>
-  <div class="item item-text-wrap">
-    <p>Import data in to application from a .json file.</p>
-  </div>
-</div>
-<ion-list></ion-list>
-<div class="card">
-  <ion-item class="item-divider item-stable positive item-icon-right" ng-click="rate()"><b class="positive">Rate Us</b></ion-item>
-  <div class="item item-text-wrap center" ng-click="rate()">
-    <p><i class="positive icon ion-ios-star"></i> <i class="positive icon ion-ios-star"></i> <i class="positive icon ion-ios-star"></i> <i class="positive icon ion-ios-star"></i> <i class="positive icon ion-ios-star"></i></p>
+<div class="card" ng-click="rateapp()">
+  <ion-item class="item-divider item-stable item-icon-right"  ng-class="'item-'+appTheme"><b>Rate Us</b><i class="icon small-icon ion-android-favorite"></i></ion-item>
+  <div class="item item-text-wrap center">
+    <i class="icon ion-ios-star" ng-class="appTheme"></i> <i class="icon ion-ios-star" ng-class="appTheme"></i> <i class=" icon ion-ios-star" ng-class="appTheme"></i> <i class=" icon ion-ios-star" ng-class="appTheme"></i> <i class=" icon ion-ios-star" ng-class="appTheme"></i>
   </div>
 </div>
 
 
 </ion-content>
 </ion-view>
+<script id="selecttheme.html" type="text/ng-template">
+      <div class="modal">
+        <ion-header-bar class="bar" ng-class="'bar-'+appTheme">
+          <button ng-click="hideselectthememodal()" class="button button-clear button-icon ion-ios-arrow-back"></button>
+          <h1 class="title">Slect Theme</h1>
+        </ion-header-bar>
+          <ion-content padding="true" class="has-header">
+            <div class="list list-inset">
+              <label class="item item-radio" ng-repeat="theme in themes">
+                <input type="radio" name="group" ng-value="theme" ng-model="appTheme" ng-change="themeChange(theme)">
+                <div class="item" ng-class="'item-' + theme">{{theme}}</div>
+                <i class="radio-icon ion-checkmark light"></i>
+              </label>
+            </div>
+          </ion-content>
+      </div>
+</script>

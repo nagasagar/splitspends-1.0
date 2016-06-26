@@ -1,4 +1,4 @@
-angular.module('starter.controllers').controller('expensecontrol', function($scope, $filter, $state, $ionicModal, $cordovaToast, $ionicPopup, $timeout, UserService, GroupService, ExpenseService) {
+angular.module('starter.controllers').controller('expensecontrol', function($scope,$rootScope, $filter, $state, $ionicModal, $cordovaToast, $ionicPopup, $timeout, UserService, GroupService, ExpenseService) {
     $scope.$on('$ionicView.enter', function() {
         UserService.findallusers().then(function(users) {
             $scope.users = users;
@@ -127,6 +127,9 @@ angular.module('starter.controllers').controller('expensecontrol', function($sco
         }
         return total;
     };
+    $rootScope.$on('addexpense2grp', function (e, grp) {
+        $scope.showaddexpensemodal();
+    });
     $scope.addexpense = function(addexpenseform) {
         if (addexpenseform.$valid && $scope.expensedata.contrib != undefined && $scope.expensedata.contrib.length != 0 && $scope.expensedata.applicable != undefined && $scope.expensedata.applicable.length != 0 && $scope.expensedata.amount == $scope.getexpensecontribtotal() && $scope.expensedata.amount == $scope.getexpenseapplicabletotal()) {
             $scope.hideaddexpensemodal();
@@ -202,7 +205,17 @@ angular.module('starter.controllers').controller('expensecontrol', function($sco
     };
 
     $scope.validatecontribtotal = function(jq) {
-        var remain = parseFloat($(jq).text())
+        var remain = ($scope.totalamt-$scope.gettotal($scope.formdata.contrib)).toFixed(2)
+        if (remain < 0.01 && remain >= 0) {
+            return true;
+
+        } else {
+            return false;
+        }
+
+    };
+    $scope.validateapplicabletotal = function(jq) {
+        var remain = ($scope.totalamt-$scope.gettotal($scope.formdata.applicableunequally)).toFixed(2)
         if (remain < 0.01 && remain >= 0) {
             return true;
 
@@ -263,7 +276,17 @@ angular.module('starter.controllers').controller('expensecontrol', function($sco
 
         } else {
             console.log("please adjust bill mount among payees, remaining amount should be 0");
-            $scope.showToast("please adjust bill mount among payees, remaining amount should be 0", "short", "middle");
+           // $scope.showToast("please adjust bill mount among payees, remaining amount should be 0", "short", "middle");
+            var myPopup = $ionicPopup.show({
+                    template: '',
+                    title: 'Select payees',
+                    subTitle: 'please adjust bill amount among payees, remaining amount should be 0'
+                })
+                myPopup.then(function(res) {});
+
+                $timeout(function() {
+                    myPopup.close();
+                }, 1000);
         }
     };
 
@@ -315,7 +338,7 @@ angular.module('starter.controllers').controller('expensecontrol', function($sco
 
     $scope.validateapplicable_unequal = function() {
 
-        var totalvalid = $scope.validatecontribtotal("span#apprem");
+        var totalvalid = $scope.validateapplicabletotal("span#apprem");
         if (totalvalid) {
             if ($scope.editexpensedata == undefined) {
                 $scope.expensedata.applicable = [];
@@ -362,7 +385,17 @@ angular.module('starter.controllers').controller('expensecontrol', function($sco
             }
         } else {
             console.log("please adjust bill mount among applicable, remaining amount should be 0");
-            $scope.showToast("please adjust bill amount among applicable, remaining amount should be 0", "short", "middle");
+            //$scope.showToast("please adjust bill amount among applicable, remaining amount should be 0", "short", "middle");
+            var myPopup = $ionicPopup.show({
+                    template: '',
+                    title: 'Select applicable',
+                    subTitle: 'please adjust bill amount among applicable, remaining amount should be 0'
+                })
+                myPopup.then(function(res) {});
+
+                $timeout(function() {
+                    myPopup.close();
+                }, 1000);
         }
 
         //console.log($scope.expensedata.applicable)
@@ -504,11 +537,11 @@ angular.module('starter.controllers').controller('expensecontrol', function($sco
         $ionicActionSheet.show({
             titleText: 'Manage',
             buttons: [{
-                text: '<i class="icon ion-checkmark-circled"></i> Edit'
-            }, {
-                text: '<i class="icon ion-ios-checkmark-outline"></i> Delete'
-            }, ],
-            cancelText: 'Cancel',
+                    text: '<i class="icon ion-edit dark"></i><p class="dark">Edit</p>'
+                }, {
+                    text: '<i class="icon ion-trash-b dark"></i><p class="dark"> Delete</p>'
+                }, ],
+            cancelText: '<p class="dark"> Cancel</p>',
             cancel: function() {
                 console.log('CANCELLED');
             },
