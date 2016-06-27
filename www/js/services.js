@@ -7,7 +7,8 @@ angular.module('starter.services', ['starter.config'])
 
     self.init = function() {
         if (window.cordova) {
-            self.db = $cordovaSQLite.openDB(DB_CONFIG.name);
+           // self.db = $cordovaSQLite.openDB({name:"splitspends",location:'default'});
+            self.db = window.sqlitePlugin.openDatabase({name: 'splitspends', location: 'default'});
         } else {
             self.db = window.openDatabase(DB_CONFIG.name, '1.0', 'database', -1);
         }
